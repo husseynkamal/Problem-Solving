@@ -1,1 +1,1 @@
-# Problem-Solving -> Hackerranck
+## Problem-Solving -> Hackerrank
