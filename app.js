@@ -3187,3 +3187,106 @@ console.log(findMedian([0, 1, 2, 4, 6, 5, 3]));
 //=========================================
 console.log("#".repeat(30));
 // [131]
+function insertionSort(arr) {
+  function merge(arr, low, mid, high) {
+    let i = low;
+    let j = mid + 1;
+    let temp = [];
+    let count = 0;
+
+    while (i <= mid && j <= high) {
+      if (arr[i] <= arr[j]) {
+        temp.push(arr[i]);
+        i += 1;
+      } else {
+        temp.push(arr[j]);
+        count += mid - i + 1;
+        j += 1;
+      }
+    }
+
+    while (i <= mid) {
+      temp.push(arr[i]);
+      i += 1;
+    }
+
+    while (j <= high) {
+      temp.push(arr[j]);
+      j += 1;
+    }
+
+    for (let t = low; t <= high; t++) {
+      arr[t] = temp[t - low];
+    }
+
+    return count;
+  }
+
+  function mergeSort(arr, low, high) {
+    if (low >= high) {
+      return 0;
+    }
+
+    let ans = 0;
+    const mid = Math.floor((low + high) / 2);
+
+    ans += mergeSort(arr, low, mid);
+    ans += mergeSort(arr, mid + 1, high);
+    ans += merge(arr, low, mid, high);
+
+    return ans;
+  }
+
+  return mergeSort(arr, 0, arr.length - 1);
+}
+
+console.log("Inversion count:", insertionSort([12, 11, 13, 5, 6, 7]));
+//=========================================
+console.log("#".repeat(30));
+// [132]
+function convertion(str, i) {
+  return str.split("").map((item) => (item = i));
+}
+
+function higherLower(n) {
+  for (let i = 1; i <= n; i++) {
+    console.log(...convertion("i".repeat(i), i));
+  }
+
+  for (let i = n - 1; i >= 1; i--) {
+    console.log(...convertion("i".repeat(i), i));
+  }
+}
+
+higherLower(5);
+//=========================================
+console.log("#".repeat(30));
+// [133]
+function palindromeIndex(s) {
+  function isPalindrome(s) {
+    for (let i = 0; i < Math.floor(s.length / 2); i++) {
+      if (s[i] !== s[s.length - i - 1]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  for (let i = 0; i < Math.floor(s.length / 2); i++) {
+    if (s[i] !== s[s.length - i - 1]) {
+      const tmp = s.substring(0, i) + s.substring(i + 1);
+      if (isPalindrome(tmp)) {
+        return i;
+      } else {
+        return s.length - i - 1;
+      }
+    }
+  }
+
+  return -1;
+}
+
+console.log(palindromeIndex("bbaa"));
+//=========================================
+console.log("#".repeat(30));
+// [134]
