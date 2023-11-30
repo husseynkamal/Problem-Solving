@@ -3377,3 +3377,401 @@ console.log(anagram("xaxbbbxx"));
 //=========================================
 console.log("#".repeat(30));
 // [136]
+function makeAnagram(s1, s2) {
+  let map = {},
+    aCount = 0,
+    bCount = 0;
+  for (let i = 0; i < s1.length; i++) {
+    if (!map[s1[i]]) {
+      map[s1[i]] = 1;
+    } else {
+      map[s1[i]] += 1;
+    }
+  }
+
+  for (let j = 0; j < s2.length; j++) {
+    if (map[s2[j]]) {
+      aCount += 1;
+      map[s2[j]] -= 1;
+    } else {
+      bCount += 1;
+    }
+  }
+
+  return s1.length - aCount + bCount;
+}
+
+console.log(makeAnagram("abc", "amnop"));
+//=========================================
+console.log("#".repeat(30));
+// [137]
+function lilysHomework(arr) {
+  let copiedArr = arr.slice();
+  let copiedArr2 = arr.slice();
+  let indexArr = [];
+  let count = 0;
+  let index;
+  let temp;
+  let decCount = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    indexArr[arr[i]] = i;
+  }
+  arr.sort(function (a, b) {
+    return a - b;
+  });
+  let sortedcopiedArr = arr.slice();
+  let decSort = sortedcopiedArr.reverse();
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] != copiedArr[i]) {
+      temp = copiedArr[i];
+      index = indexArr[arr[i]];
+      indexArr[arr[i]] = i;
+      indexArr[copiedArr[i]] = index;
+      copiedArr[i] = arr[i];
+      copiedArr[index] = temp;
+      count++;
+    }
+  }
+  indexArr = [];
+
+  for (let i = 0; i < copiedArr2.length; i++) {
+    indexArr[copiedArr2[i]] = i;
+  }
+
+  for (let i = 0; i < decSort.length; i++) {
+    if (decSort[i] != copiedArr2[i]) {
+      temp = copiedArr2[i];
+      index = indexArr[decSort[i]];
+      indexArr[decSort[i]] = i;
+      indexArr[copiedArr2[i]] = index;
+      copiedArr2[i] = decSort[i];
+      copiedArr2[index] = temp;
+      decCount++;
+    }
+  }
+
+  return Math.min(count, decCount);
+}
+
+console.log(lilysHomework([7, 15, 12, 3]));
+//=========================================
+console.log("#".repeat(30));
+// [138]
+function gameOfThrones(s) {
+  let mySet = new Set();
+  for (let i = 0; i < s.length; i++) {
+    mySet.add(s.charAt(i));
+  }
+  let even = 0;
+  let odd = 0;
+
+  for (let item of mySet) {
+    let count = 0;
+
+    for (let i = 0; i < s.length; i++) {
+      if (item == s[i]) {
+        count++;
+      }
+    }
+
+    if (count % 2 == 0) {
+      even++;
+    } else {
+      odd++;
+    }
+    if (s.length % 2 == 0) {
+      if (odd > 0) {
+        return "NO";
+      }
+    } else {
+      if (odd > 1) {
+        return "NO";
+      }
+    }
+  }
+  return "YES";
+}
+
+console.log(gameOfThrones("aabbccdd"));
+//=========================================
+console.log("#".repeat(30));
+// [139]
+function twoStrings(s1, s2) {
+  let arr1 = s1.split("");
+  let arr2 = s2.split("");
+
+  let string = "abcdefghijklmnopqrstuvwxyz";
+  let alphabets = string.split("");
+
+  for (let i = 0; i < alphabets.length; i++) {
+    if (arr1.indexOf(alphabets[i]) >= 0 && arr2.indexOf(alphabets[i]) >= 0) {
+      return "YES";
+    }
+  }
+  
+  return "NO";
+}
+
+console.log(twoStrings("wouldyoulikefries", "abcabcabcabcabcabc"));
+//=========================================
+console.log("#".repeat(30));
+// [140]
+function stringConstruction(s) {
+  let mySet = new Set();
+  let cost = 0;
+  for (let i = 0; i < s.length; i++) {
+    if (!mySet.has(s.charAt(i))) {
+      mySet.add(s.charAt(i));
+      cost++;
+    }
+  }
+  return cost;
+}
+
+console.log(stringConstruction("abcd"));
+//=========================================
+console.log("#".repeat(30));
+// [141]
+function isValid(s) {
+  let hash = {};
+  let max, min;
+  let minCount = 0;
+  let maxCount = 0;
+  for (let i = 0; i < s.length; i++) {
+    let key = s[i];
+    if (hash[key]) {
+      hash[key]++;
+    } else {
+      hash[key] = 1;
+    }
+  }
+
+  let frequencies = [];
+  for (let key in hash) {
+    frequencies.push(hash[key]);
+  }
+  frequencies.sort();
+  min = frequencies[0];
+  max = frequencies[frequencies.length - 1];
+  for (let i = 0; i < frequencies.length; i++) {
+    if (frequencies[i] === max) {
+      maxCount++;
+    }
+    if (frequencies[i] === min) {
+      minCount++;
+    }
+  }
+
+  if (min === max) {
+    return "YES";
+  }
+  if (max - (min - 1) == max && minCount === 1 && maxCount !== 1) {
+    return "YES";
+  }
+  if (max - min !== 1) {
+    return "NO";
+  }
+  if (maxCount === minCount) {
+    return "NO";
+  }
+  if (maxCount === 1 || minCount === 1) {
+    return "YES";
+  }
+
+  return "NO";
+}
+
+console.log(isValid("abcc"));
+//=========================================
+console.log("#".repeat(30));
+// [142]
+function highestValuePalindrome(s, n, k) {
+  let minNoOfChanges = 0;
+
+  for (let i = 0; i < Math.floor(n / 2); i++) {
+    if (s[i] !== s[n - i - 1]) {
+      minNoOfChanges++;
+    }
+  }
+
+  if (minNoOfChanges > k) {
+    return "-1";
+  }
+
+  let highestValuePalindrome = "";
+
+  for (let i = 0; i < Math.floor(n / 2); i++) {
+    if (k - minNoOfChanges > 1) {
+      if (s[i] !== s[n - i - 1]) {
+        if (s[i] !== "9" && s[n - i - 1] !== "9") {
+          highestValuePalindrome += "9";
+          k -= 2;
+        } else {
+          if (s[i] > s[n - i - 1]) {
+            highestValuePalindrome += s[i];
+          } else {
+            highestValuePalindrome += s[n - i - 1];
+          }
+          k -= 1;
+        }
+        minNoOfChanges -= 1;
+      } else if (s[i] !== "9") {
+        highestValuePalindrome += "9";
+        k -= 2;
+      } else {
+        highestValuePalindrome += s[i];
+      }
+    } else if (k - minNoOfChanges === 1) {
+      if (s[i] !== s[n - i - 1]) {
+        if (s[i] !== "9" && s[n - i - 1] !== "9") {
+          highestValuePalindrome += "9";
+          k -= 2;
+        } else {
+          if (s[i] > s[n - i - 1]) {
+            highestValuePalindrome += s[i];
+          } else {
+            highestValuePalindrome += s[n - i - 1];
+          }
+          k -= 1;
+        }
+        minNoOfChanges -= 1;
+      } else {
+        highestValuePalindrome += s[i];
+      }
+    } else if (s[i] !== s[n - i - 1]) {
+      if (s[i] > s[n - i - 1]) {
+        highestValuePalindrome += s[i];
+      } else {
+        highestValuePalindrome += s[n - i - 1];
+      }
+      k -= 1;
+      minNoOfChanges -= 1;
+    } else {
+      highestValuePalindrome += s[i];
+    }
+  }
+
+  if (n % 2 !== 0) {
+    if (k > 0) {
+      return (
+        highestValuePalindrome +
+        "9" +
+        highestValuePalindrome.split("").reverse().join("")
+      );
+    }
+    return (
+      highestValuePalindrome +
+      s[Math.floor(n / 2)] +
+      highestValuePalindrome.split("").reverse().join("")
+    );
+  }
+
+  return (
+    highestValuePalindrome + highestValuePalindrome.split("").reverse().join("")
+  );
+}
+
+console.log(highestValuePalindrome("12321", 5, 1));
+//=========================================
+console.log("#".repeat(30));
+// [143]
+function getAllSubstrings(str) {
+  let i,
+    j,
+    result = [];
+
+  for (i = 0; i < str.length; i++) {
+    for (j = i + 1; j < str.length + 1; j++) {
+      result.push(str.slice(i, j));
+    }
+  }
+  return result;
+}
+
+function isAnagram(str1, str2) {
+  const hist = {};
+
+  for (let i = 0; i < str1.length; i++) {
+    const char = str1[i];
+    if (hist[char]) {
+      hist[char]++;
+    } else {
+      hist[char] = 1;
+    }
+  }
+
+  for (let j = 0; j < str2.length; j++) {
+    const char = str2[j];
+    if (hist[char]) {
+      hist[char]--;
+    } else {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function countAnagrams(currentIndex, arr) {
+  const currentElement = arr[currentIndex];
+  const arrRest = arr.slice(currentIndex + 1);
+  let counter = 0;
+
+  for (let i = 0; i < arrRest.length; i++) {
+    if (
+      currentElement.length === arrRest[i].length &&
+      isAnagram(currentElement, arrRest[i])
+    ) {
+      counter++;
+    }
+  }
+
+  return counter;
+}
+
+function sherlockAndAnagrams(s) {
+  const duplicatesCount = s
+    .split("")
+    .filter((v, i) => s.indexOf(v) !== i).length;
+
+  if (!duplicatesCount) return 0;
+  let anagramsCount = 0;
+
+  const arr = getAllSubstrings(s);
+
+  for (let i = 0; i < arr.length; i++) {
+    anagramsCount += countAnagrams(i, arr);
+  }
+
+  return anagramsCount;
+}
+
+console.log(sherlockAndAnagrams("mom"));
+//=========================================
+console.log("#".repeat(30));
+// [144]
+function commonChild(s1, s2) {
+  const lcs = [];
+  for (let i = 0; i < s2.length + 1; i++) {
+    lcs.push(new Array(s1.length + 1).fill(0));
+  }
+
+  for (let i = 1; i < s1.length + 1; i++) {
+    for (let j = 1; j < s2.length + 1; j++) {
+      if (s1[i - 1] === s2[j - 1]) {
+        lcs[i][j] = lcs[i - 1][j - 1] + 1;
+      } else {
+        lcs[i][j] = Math.max(lcs[i - 1][j], lcs[i][j - 1]);
+      }
+    }
+  }
+
+  return lcs[s1.length][s2.length];
+}
+
+console.log(commonChild("ABCD", "ABDC"));
+//=========================================
+console.log("#".repeat(30));
+// [145]
