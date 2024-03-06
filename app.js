@@ -3775,3 +3775,100 @@ console.log(commonChild("ABCD", "ABDC"));
 //=========================================
 console.log("#".repeat(30));
 // [145]
+function steadyGene(gene) {
+  const n = gene.length;
+  const count = { A: 0, C: 0, G: 0, T: 0 };
+
+  for (let i = 0; i < n; i++) {
+    count[gene[i]] += 1;
+  }
+
+  const excess = {};
+  for (const letter of "ACGT") {
+    if (count[letter] > n / 4) {
+      excess[letter] = count[letter] - n / 4;
+    }
+  }
+
+  if (Object.keys(excess).length === 0) {
+    return 0;
+  }
+
+  let minLen = Infinity;
+  let left = 0;
+  for (let right = 0; right < n; right++) {
+    if (excess[gene[right]] !== undefined) {
+      excess[gene[right]] -= 1;
+    }
+
+    while (Object.values(excess).every((val) => val <= 0)) {
+      minLen = Math.min(minLen, right - left + 1);
+      if (excess[gene[left]] !== undefined) {
+        excess[gene[left]] += 1;
+      }
+      left += 1;
+    }
+  }
+
+  return minLen;
+}
+
+console.log(steadyGene("GAAATAAA"));
+//=========================================
+console.log("#".repeat(30));
+// [146]
+function morganAndString(a, b) {
+  const la = a.length;
+  const lb = b.length;
+  a += "z";
+  b += "z";
+  let i = 0;
+  let j = 0;
+  let result = "";
+
+  while (i !== la && j !== lb) {
+    if (a.slice(i) < b.slice(j)) {
+      result += a[i];
+      i += 1;
+    } else {
+      result += b[j];
+      j += 1;
+    }
+  }
+
+  result += a.slice(i, -1) + b.slice(j, -1);
+  return result;
+}
+
+console.log(morganAndString("JACK", "DANIEL"));
+//=========================================
+console.log("#".repeat(30));
+// [147]
+function createMapNums(arr, map) {
+  for (let i = 0; i < arr.length; i++) {
+    const arrElem = arr[i];
+    if (map[arrElem]) {
+      map[arrElem]++;
+      continue;
+    }
+    map[arrElem] = 1;
+  }
+
+  return map;
+}
+
+function missingNumbers(arr, brr) {
+  const numbersMap1 = createMapNums(arr, {});
+  const numbersMap2 = createMapNums(brr, numbersMap1);
+
+  const result = Object.keys(numbersMap2).filter(
+    (key) => numbersMap2[key] === 1
+  );
+
+  return result;
+}
+
+console.log(missingNumbers([7, 2, 5, 3, 5, 3], [7, 2, 5, 4, 6, 3, 5, 3]));
+//=========================================
+console.log("#".repeat(30));
+// [148]
