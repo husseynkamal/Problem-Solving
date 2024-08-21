@@ -3872,3 +3872,40 @@ console.log(missingNumbers([7, 2, 5, 3, 5, 3], [7, 2, 5, 4, 6, 3, 5, 3]));
 //=========================================
 console.log("#".repeat(30));
 // [148]
+function isSquare(n) {
+  const sqrt = Math.sqrt(n);
+  return Number.isInteger(sqrt);
+}
+
+console.log(isSquare(25));
+//=========================================
+console.log("#".repeat(30));
+// [149]
+function findOddNames(list) {
+  return list.filter((person) => {
+    const sumOfAscii = person.firstName
+      .split("")
+      .reduce((sum, char) => sum + char.charCodeAt(0), 0);
+
+    return sumOfAscii % 2 !== 0;
+  });
+}
+
+const list1 = [
+  { firstName: 'Aba', lastName: 'N.', country: 'Ghana', continent: 'Africa', age: 21, language: 'Python' },
+  { firstName: 'Abb', lastName: 'O.', country: 'Israel', continent: 'Asia', age: 39, language: 'Java' }
+];
+console.log(findOddNames(list1));
+//=========================================
+console.log("#".repeat(30));
+// [150]
+function findOutlier(integers) {
+  const evenIntegers = integers.filter((integer) => integer % 2 == 0);
+  const oddIntegers = integers.filter((integer) => integer % 2 !== 0);
+  return evenIntegers.length == 1 ? evenIntegers[0] : oddIntegers[0];
+}
+
+console.log(findOutlier([2, 4, 0, 100, 4, 11, 2602, 36]));
+//=========================================
+console.log("#".repeat(30));
+// [151]
