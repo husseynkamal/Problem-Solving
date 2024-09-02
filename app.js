@@ -3909,3 +3909,24 @@ console.log(findOutlier([2, 4, 0, 100, 4, 11, 2602, 36]));
 //=========================================
 console.log("#".repeat(30));
 // [151]
+function pigIt(str) {
+  let result = [];
+  const inputArray = str.split(" ");
+  const punctuationMarks = { "!": "!", "?": "?", ".": "." };
+  for (const word of inputArray) {
+    const splitedWord = word.split("");
+    let editedWord = `${splitedWord.slice(1).join("")}${splitedWord[0]}`;
+    if (!punctuationMarks[word]) {
+      editedWord += "ay";
+    }
+
+    result.push(editedWord);
+  }
+
+  return result.join(" ");
+}
+
+console.log(pigIt("uisQay ustodietcay psosiay ustodescay ?"));
+//=========================================
+console.log("#".repeat(30));
+// [152]
