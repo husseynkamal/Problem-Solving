@@ -3962,3 +3962,28 @@ console.log(
 //=========================================
 console.log("#".repeat(30));
 // [153]
+function twoSumII(numbers, target) {
+  let left = 0;
+  let right = numbers.length - 1;
+
+  while (left < right) {
+    const sum = numbers[left] + numbers[right];
+
+    if (sum === target) {
+      return [numbers[left], numbers[right]];
+    }
+
+    if (sum > target) {
+      right--;
+    } else {
+      left++;
+    }
+  }
+
+  return [];
+}
+
+console.log(twoSumII([2, 7, 11, 15, 17, 28, 31], 32));
+//=========================================
+console.log("#".repeat(30));
+// [154]
