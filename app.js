@@ -3987,3 +3987,33 @@ console.log(twoSumII([2, 7, 11, 15, 17, 28, 31], 32));
 //=========================================
 console.log("#".repeat(30));
 // [154]
+function searchingChallenge(str) {
+  const bracketsMap = { "(": 0, ")": 0, "[": 0, "]": 0 };
+  for (const char of str) {
+    if (char in bracketsMap) bracketsMap[char] = bracketsMap[char] + 1;
+  }
+
+  const rightObjArr = Object.values(bracketsMap).slice(0, 2);
+  const leftObjArr = Object.values(bracketsMap).slice(2);
+
+  let isRightMatched = rightObjArr[0] === rightObjArr[1];
+  let isleftMatched = leftObjArr[0] === leftObjArr[1];
+
+  const bracketsCount = Object.values(bracketsMap).reduce(
+    (acc, cur) => acc + cur,
+    0
+  );
+
+  if (!bracketsCount) return "1";
+
+  if (isRightMatched === isleftMatched) {
+    return `${1} ${rightObjArr[0] + leftObjArr[0]}`;
+  }
+
+  return "0";
+}
+
+console.log(searchingChallenge("(c([od]er)) b(yt[e])"));
+//=========================================
+console.log("#".repeat(30));
+// [155]
